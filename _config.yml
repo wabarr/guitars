@@ -4,6 +4,6 @@ description: > # this means to ignore newlines until "email:"
    a user-friendly source of songs
 email: songsareawesome@gmail.com
 avatar: images/avatar.png
-base_url: songs.are-awesome.com
+base_url: http://songs.are-awesome.com
 permalink: none
 #blog logo
