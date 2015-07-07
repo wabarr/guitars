@@ -1,0 +1,15 @@
+<!-- section two, included in the home.html layout -->
+	<section id="two">
+		<div class="container">
+			<header class="major">
+				<h2>Songs</h2>
+				<ul>
+					{% for post in site.posts %}
+						<li style="list-style-type: none;">
+								<a href="{{post.url}}">{{post.title}}</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</header>
+		</div>
+	</section>

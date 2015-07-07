@@ -14,12 +14,14 @@
 		<!-- Wrapper -->
 			<div id="wrapper">
 
+				<div id="main">
 				<!-- Main -->
-					{{ content }}
-
+						{% include about.html %}
+						{% include songs.html %}
+						{% include contact.html %}
+				</div>
 				<!-- Footer -->
-					{% include footer.html %}
-
+						{% include footer.html %}
 			</div>
 
 		<!-- Scripts -->

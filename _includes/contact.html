@@ -1,0 +1,15 @@
+<!-- section three, included in the home.html layout -->
+  <section id="three">
+    <div class="container">
+      <header class="major">
+        <h2>Contact Us</h2>
+        <form action="//formspree.io/submitanawesomesong@gmail.com" method="POST">
+          <input type="text" name="name" placeholder="Your Name">
+          <input type="email" name="_replyto" placeholder="Your Email Address">
+          <input type="submit" value="Send">
+          <input type="hidden" name="_next" value="{{site.base_url}}/thanks.html" />
+          <input type="text" name="_gotcha" style="display:none" /> <!--This field is a honeypot to attract spambots-->
+        </form>
+      </header>
+    </div>
+  </section>
