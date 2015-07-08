@@ -36,7 +36,7 @@ layout: thanks
       /* TODO: what if previous line already includes chords? probaby need a special symbol to specify chord lines, then inser*/
       if(e.shiftKey){
         var text = this.value;
-        var newLinePos = text.lastIndexOf('\n', this.selectionStart);
+        var newLinePos = text.lastIndexOf('\n', this.selectionStart - 1);
         var lineLength = this.selectionStart - newLinePos;
         var newString = '';
         for(var i=1; i < lineLength; ++i){
