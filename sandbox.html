@@ -36,18 +36,31 @@ layout: thanks
       /* TODO: what if previous line already includes chords? probaby need a special symbol to specify chord lines, then inser*/
       if(e.shiftKey){
         var text = this.value;
-        var newLinePos = text.lastIndexOf('\n', this.selectionStart - 1);
-        var lineLength = this.selectionStart - newLinePos;
-        var newString = '';
-        for(var i=1; i < lineLength; ++i){
-            newString += ' ';
-          }
-          newString += "\*";
-          if(newLinePos == -1){
-            this.value = newString + '\n' + this.value;
-          } else {
-            this.value = [text.slice(0, newLinePos), '\n'+newString, text.slice(newLinePos)].join('');
-          }
+        var previousNewLine = text.lastIndexOf('\n', this.selectionStart - 1);
+        var newLineBeforePrevious = text.slice(0, previousNewLine).lastIndexOf('\n');
+        var lineLength = this.selectionStart - previousNewLine;
+        var previousLineChords = text.slice(newLineBeforePrevious, previousNewLine).includes("\^")
+        if(previousLineChords){
+          newString = text.slice(newLineBeforePrevious, previousNewLine)
+          newString = newString.slice(0,lineLength) + "^" + newString.slice(lineLength+1)
+          this.value = [text.slice(0, newLineBeforePrevious), newString, text.slice(previousNewLine)].join('');
+          text = null;
+        }
+        else{
+          var newString = '';
+          for(var i=1; i < lineLength; ++i){
+              newString += ' ';
+            }
+            newString += "\^";
+            if(previousNewLine == -1){
+              this.value = newString + '\n' + this.value;
+              text = null;
+            } else {
+              this.value = [text.slice(0, previousNewLine), '\n'+newString, text.slice(previousNewLine)].join('');
+              text = null;
+            }
+        }
+
         }
       });
 
