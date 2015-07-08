@@ -10,7 +10,7 @@ layout: thanks
   <form>
     <div class="row uniform">
       <div class="12u">
-        <textarea id="rawmarkdown" style="font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;">
+        <textarea id="rawmarkdown" rows=10 style="font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;">
 </textarea>
     </div>
   </form>
@@ -19,12 +19,34 @@ layout: thanks
   <script>
 
   document.addEventListener("DOMContentLoaded", function(event) {
+    /*Caret can't be loaded until after jquery so I have to do this*/
+    $("#caretscript").html("<script src='{{site.base_url}}/assets/js/jquery.caret.js'><//script>")
     function updateMarkdown() {
       var markdown = $('#rawmarkdown').val();
       $('#renderedcontent').html(marked(markdown));
     }
     $('#rawmarkdown').keyup(updateMarkdown);
+    $('#rawmarkdown').click(function(e){
+      /* This is based on text that is selected */
+      /* TODO: what if previous line already includes chords? probaby need a special symbol to specify chord lines, then inser*/
+      if(e.altKey){
+        var text = this.value;
+        var newLinePos = text.lastIndexOf('\n', this.selectionStart);
+        var lineLength = this.selectionStart - newLinePos;
+        var newString = '';
+        for(var i=1; i < lineLength; ++i){
+            newString += ' ';
+          }
+          newString += text.substr(this.selectionStart,this.selectionEnd-this.selectionStart);
+          if(newLinePos == -1){
+            this.value = newString + '\n' + this.value;
+          } else {
+            this.value = [text.slice(0, newLinePos), '\n'+newString, text.slice(newLinePos)].join('');
+          }
+        }
+      });
 
   });
 
   </script>
+  <div id="caretscript"></div>
