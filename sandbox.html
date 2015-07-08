@@ -21,10 +21,19 @@ layout: thanks
   document.addEventListener("DOMContentLoaded", function(event) {
     /*Caret can't be loaded until after jquery so I have to do this*/
     $("#caretscript").html("<script src='{{site.base_url}}/assets/js/jquery.caret.js'><//script>")
+
+
+
     function updateMarkdown() {
       var markdown = $('#rawmarkdown').val();
       $('#renderedcontent').html(marked(markdown));
     }
+
+    /* Inialize */
+    var initialVal = "## Title\n\n### Author\n\n```\nSong Goes Here\n```"
+    $("#rawmarkdown").val(initialVal)
+    updateMarkdown();
+
     $('#rawmarkdown').keyup(updateMarkdown);
     $('#rawmarkdown').click(function(e){
       /* This is based on text that is selected */
