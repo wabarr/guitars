@@ -38,7 +38,7 @@ layout: thanks
     $('#rawmarkdown').click(function(e){
       /* This is based on text that is selected */
       /* TODO: what if previous line already includes chords? probaby need a special symbol to specify chord lines, then inser*/
-      if(e.altKey){
+      if(e.shiftKey){
         var text = this.value;
         var newLinePos = text.lastIndexOf('\n', this.selectionStart);
         var lineLength = this.selectionStart - newLinePos;
