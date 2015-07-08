@@ -1,9 +1,10 @@
 # Site settings
-title: "Songs Are Awesome!"
+title: "Songs Are Awesome"
 description: > # this means to ignore newlines until "email:"
    a user-friendly source of songs
 email: songsareawesome@gmail.com
 avatar: images/avatar.png
 base_url: http://songs.are-awesome.com
 permalink: none
+tagline: Great songs. No ads. No kidding.
 #blog logo
