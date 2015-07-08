@@ -1,0 +1,28 @@
+---
+title: sandbox
+layout: thanks
+---
+
+<script src="{{site.base_url}}/assets/js/marked.js"></script>
+
+<div class="container">
+  <h2>Submit a Song</h2>
+  <form>
+    <div class="row uniform">
+      <div class="12u"><textarea id="rawmarkdown"></textarea>
+    </div>
+  </form>
+</div>
+<div id="renderedcontent"></div>
+  <script>
+
+  document.addEventListener("DOMContentLoaded", function(event) {
+    function updateMarkdown() {
+      var markdown = $('#rawmarkdown').val();
+      $('#renderedcontent').html(marked(markdown));
+    }
+    $('#rawmarkdown').keyup(updateMarkdown);
+
+  });
+
+  </script>
