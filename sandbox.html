@@ -14,19 +14,30 @@ layout: thanks
         <a href="#" id="togglecheatsheet" class="icon fa-plus"><span class="label">Help</span></a></h4>
 
         <ul style="list-style-type: none; display:none;" id="helptext">
-          <li>Use markdown syntax (the ` ` `&nbsp;&nbsp;&nbsp;&nbsp; ` ` ` parts around the song itself are critical)</li>
+          <li>Use <a href="https://help.github.com/articles/markdown-basics/">markdown syntax</a> (the ` ` `&nbsp;&nbsp;&nbsp;&nbsp; ` ` ` parts around the song itself are critical)</li>
           <li>To add a chord at an exact spot in the lyrics, Use Shift + Click to insert a placeholder</li>
         </ul>
       </div>
     </div>
 
-    <form>
+    <form method="post" action="//formspree.io/submitanawesomesong@gmail.com">
       <div class="row uniform">
         <div class="12u">
-          <textarea id="rawmarkdown" rows=10 style="font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;">
+          <!-- this field has to be called 'message' to properly work with formspree-->
+          <textarea id="message" name="message" rows=10 style="font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;">
           </textarea>
         </div>
       </div>
+      <div class="row uniform">
+        <div class="9u">
+        </div>
+        <div class="3u">
+          <ul class="actions">
+            <li><input type="submit" class="special" value="Submit Song" /></li>
+            <input type="hidden" name="_next" value="{{site.base_url}}/thanks.html" />
+            <input type="text" name="_gotcha" style="display:none" /> <!--This field is a honeypot to attract spambots-->
+          </ul>
+        </div>
     </form>
 
     <div id="renderedcontent"></div>
@@ -42,17 +53,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
   })
 
   function updateMarkdown() {
-    var markdown = $('#rawmarkdown').val();
+    var markdown = $('#message').val();
     $('#renderedcontent').html(marked(markdown));
   }
 
   /* Inialize */
   var initialVal = "## Title\n\n### Author\n\n```\nSong Goes Here\n```"
-  $("#rawmarkdown").val(initialVal)
+  $("#message").val(initialVal)
   updateMarkdown();
 
-  $('#rawmarkdown').keyup(updateMarkdown);
-  $('#rawmarkdown').click(function(e){
+  $('#message').keyup(updateMarkdown);
+  $('#message').click(function(e){
     if(e.shiftKey){
       var text = this.value;
       var previousNewLine = text.lastIndexOf('\n', this.selectionStart - 1);
