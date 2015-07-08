@@ -5,65 +5,93 @@ layout: thanks
 
 <script src="{{site.base_url}}/assets/js/marked.js"></script>
 
-<div class="container">
-  <h2>Submit a Song</h2>
-  <form>
+
+<section>
+    <h2>Submit a Song</h2>
     <div class="row uniform">
       <div class="12u">
-        <textarea id="rawmarkdown" rows=10 style="font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;">
-</textarea>
+        <h4><span id="cheatsheetlabel">Cheat Sheet</span>&nbsp;
+        <a href="#" id="togglecheatsheet" class="icon fa-plus"><span class="label">Help</span></a></h4>
+
+        <ul style="list-style-type: none; display:none;" id="helptext">
+          <li>Use markdown syntax (the ` ` `&nbsp;&nbsp;&nbsp;&nbsp; ` ` ` parts around the song itself are critical)</li>
+          <li>To add a chord at an exact spot in the lyrics, Use Shift + Click to insert a placeholder</li>
+        </ul>
+      </div>
     </div>
-  </form>
-</div>
-<div id="renderedcontent"></div>
-  <script>
 
-  document.addEventListener("DOMContentLoaded", function(event) {
+    <form>
+      <div class="row uniform">
+        <div class="12u">
+          <textarea id="rawmarkdown" rows=10 style="font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;">
+          </textarea>
+        </div>
+      </div>
+    </form>
 
-    function updateMarkdown() {
-      var markdown = $('#rawmarkdown').val();
-      $('#renderedcontent').html(marked(markdown));
-    }
+    <div id="renderedcontent"></div>
+</section>
 
-    /* Inialize */
-    var initialVal = "## Title\n\n### Author\n\n```\nSong Goes Here\n```"
-    $("#rawmarkdown").val(initialVal)
-    updateMarkdown();
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
 
-    $('#rawmarkdown').keyup(updateMarkdown);
-    $('#rawmarkdown').click(function(e){
-      /* This is based on text that is selected */
-      /* TODO: what if previous line already includes chords? probaby need a special symbol to specify chord lines, then inser*/
-      if(e.shiftKey){
-        var text = this.value;
-        var previousNewLine = text.lastIndexOf('\n', this.selectionStart - 1);
-        var newLineBeforePrevious = text.slice(0, previousNewLine).lastIndexOf('\n');
-        var lineLength = this.selectionStart - previousNewLine;
-        var previousLineChords = text.slice(newLineBeforePrevious, previousNewLine).includes("\^")
-        if(previousLineChords){
-          newString = text.slice(newLineBeforePrevious, previousNewLine)
-          newString = newString.slice(0,lineLength) + "^" + newString.slice(lineLength+1)
-          this.value = [text.slice(0, newLineBeforePrevious), newString, text.slice(previousNewLine)].join('');
-          text = null;
+  $("#togglecheatsheet").click(function(){
+    $("#togglecheatsheet").toggleClass("fa-minus fa-plus");
+    $("#helptext").toggle();
+
+  })
+
+  function updateMarkdown() {
+    var markdown = $('#rawmarkdown').val();
+    $('#renderedcontent').html(marked(markdown));
+  }
+
+  /* Inialize */
+  var initialVal = "## Title\n\n### Author\n\n```\nSong Goes Here\n```"
+  $("#rawmarkdown").val(initialVal)
+  updateMarkdown();
+
+  $('#rawmarkdown').keyup(updateMarkdown);
+  $('#rawmarkdown').click(function(e){
+    if(e.shiftKey){
+      var text = this.value;
+      var previousNewLine = text.lastIndexOf('\n', this.selectionStart - 1);
+      var newLineBeforePrevious = text.slice(0, previousNewLine).lastIndexOf('\n');
+      var lineLength = this.selectionStart - previousNewLine;
+
+      /*If the character immediately  the previousNewLine is ^, then you have to extend the line with spaces*/
+      if(text.slice(previousNewLine-1, previousNewLine).includes("\^")) {
+        var newString = '';
+        for(var i=1; i < 5; ++i){
+            newString += ' ';
+          }
+          newString += "\^";
+          this.value = [text.slice(0, previousNewLine), newString, text.slice(previousNewLine)].join('')
+          return;
+      }
+
+      var previousLineChords = text.slice(newLineBeforePrevious, previousNewLine).includes("\^")
+      if(previousLineChords){
+        newString = text.slice(newLineBeforePrevious, previousNewLine)
+        newString = newString.slice(0,lineLength) + "^" + newString.slice(lineLength+1)
+        this.value = [text.slice(0, newLineBeforePrevious), newString, text.slice(previousNewLine)].join('');
+        text = null;
+      }
+      else {
+        var newString = '';
+        for(var i=1; i < lineLength; ++i){
+            newString += ' ';
+          }
+          newString += "\^";
+          if(previousNewLine == -1){
+            this.value = newString + '\n' + this.value;
+            text = null;
+          } else {
+            this.value = [text.slice(0, previousNewLine), '\n'+newString, text.slice(previousNewLine)].join('');
+            text = null;
+          }
         }
-        else{
-          var newString = '';
-          for(var i=1; i < lineLength; ++i){
-              newString += ' ';
-            }
-            newString += "\^";
-            if(previousNewLine == -1){
-              this.value = newString + '\n' + this.value;
-              text = null;
-            } else {
-              this.value = [text.slice(0, previousNewLine), '\n'+newString, text.slice(previousNewLine)].join('');
-              text = null;
-            }
-        }
-
-        }
-      });
-
-  });
-
-  </script>
+      }
+    });
+});
+</script>
