@@ -3,9 +3,12 @@ layout: song
 title: Satisfied Mind
 ---
 
-<h2>Satisfied Mind</h2>
-<h3>Joe "Red" Hayes and Jack Rhodes</h3>
+## Satisfied Mind
+
+### Joe "Red" Hayes and Jack Rhodes
+
 <pre>
+<code>
 D     	 G    A         A            D     D
 How many times have you heard someone say
       D        A        A           G            D      D
@@ -42,8 +45,6 @@ But one thing's for certain, when it comes my time,
       D                 A     A                G         D       D
 I'll leave this old world              with a satisfied mind.
 
-
 (Repeat Verse 1)
-
-
+</code>
 </pre>
