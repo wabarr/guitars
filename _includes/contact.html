@@ -3,13 +3,28 @@
     <div class="container">
       <header class="major">
         <h2>Contact Us</h2>
-        <form action="//formspree.io/submitanawesomesong@gmail.com" method="POST">
-          <input type="text" name="name" placeholder="Your Name">
-          <input type="email" name="_replyto" placeholder="Your Email Address">
-          <input type="submit" value="Send">
-          <input type="hidden" name="_next" value="{{site.base_url}}/thanks.html" />
-          <input type="text" name="_gotcha" style="display:none" /> <!--This field is a honeypot to attract spambots-->
-        </form>
+        <form method="post" action="//formspree.io/submitanawesomesong@gmail.com">
+										<div class="row uniform">
+											<div class="6u 12u(xsmall)"><input type="text" name="name" id="name" placeholder="Name" /></div>
+											<div class="6u 12u(xsmall)"><input type="email" name="_replyto" id="email" placeholder="Email" /></div>
+										</div>
+										<div class="row uniform">
+											<div class="12u"><input type="text" name="_subject" id="subject" placeholder="Subject" /></div>
+										</div>
+										<div class="row uniform">
+											<div class="12u"><textarea name="message" id="message" placeholder="Message" rows="6"></textarea></div>
+										</div>
+										<div class="row uniform">
+											<div class="12u">
+												<ul class="actions">
+													<li><input type="submit" class="special" value="Send Message" /></li>
+													<li><input type="reset" value="Reset Form" /></li>
+                          <input type="hidden" name="_next" value="{{site.base_url}}/thanks.html" />
+                          <input type="text" name="_gotcha" style="display:none" /> <!--This field is a honeypot to attract spambots-->
+												</ul>
+											</div>
+										</div>
+									</form>
       </header>
     </div>
   </section>
