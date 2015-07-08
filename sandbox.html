@@ -46,7 +46,7 @@ layout: thanks
         for(var i=1; i < lineLength; ++i){
             newString += ' ';
           }
-          newString += text.substr(this.selectionStart,this.selectionEnd-this.selectionStart);
+          newString += "\*";
           if(newLinePos == -1){
             this.value = newString + '\n' + this.value;
           } else {
