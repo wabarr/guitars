@@ -2,14 +2,44 @@
 	<section id="two">
 		<div class="container">
 			<header class="major">
-				<h2>Songs</h2>
-				<ul style="list-style-type: none;">
-					{% for post in site.posts %}
-						<li>
-								<a href="{{post.url}}">{{post.title}}</a>
-						</li>
+				<div id="by-artist">
+					<h2>Songs By Artist</h2>
+					{% capture tags %}
+	  				{% for tag in site.tags %}
+	    				{{ tag[0] }}
+	  				{% endfor %}
+					{% endcapture %}
+
+					{% assign sortedtags = tags | split:' ' | sort %}
+
+					{% for tag in sortedtags %}
+	  				<h3 id="{{ tag }}">{{ tag | replace:'_',' ' }}</h3>
+	  				<ul>
+	  				{% for post in site.tags[tag] %}
+	    				<li><a href="{{ post.url }}">{{ post.title }}</a></li>
+						{% endfor %}
+						</ul>
 					{% endfor %}
-				</ul>
+				</div>
+				<div id="by-category">
+					<h2>Songs By Category</h2>
+					{% capture categories %}
+	  				{% for category in site.categories %}
+	    				{{ category[0] }}
+	  				{% endfor %}
+					{% endcapture %}
+
+					{% assign sortedcategories = categories | split:' ' | sort %}
+
+					{% for category in sortedcategories %}
+	  				<h3 id="{{ category }}">{{ category | replace:'_',' ' }}</h3>
+	  				<ul>
+	  				{% for post in site.categories[category] %}
+	    				<li><a href="{{ post.url }}">{{ post.title }}</a></li>
+						{% endfor %}
+						</ul>
+					{% endfor %}
+				</div>
 			</header>
 		</div>
 	</section>

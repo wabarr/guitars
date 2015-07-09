@@ -1,6 +1,8 @@
 ---
 layout: song
 title: Satisfied Mind
+tags: Joe_'Red'_Hayes Jack_Rhodes
+categories: classic_country
 ---
 
 ## Satisfied Mind
